@@ -1,13 +1,19 @@
 package com.pluralsight;
-import javax.imageio.IIOException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import static com.pluralsight.FileManager.accountHashMap;
+
 
 public class HomeScreen {
+    public static int number = 0;
     public static void main(String[] args) throws IOException {
+        if(number == 0){
+            FileManager.reader();
+            number++;
+        }
         Scanner myScanner = new Scanner(System.in);
         while (true) {
             System.out.println("Welcome to Piedmont Credit Union");
@@ -34,9 +40,7 @@ public class HomeScreen {
 
                 Account account = new Account(description, vendor, amount);
 
-                BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src/main/resources/transactions.csv", true));
-                bufferedWriter.write(account.toString());
-                bufferedWriter.close();
+                accountHashMap.put(accountHashMap.size(), account);
             } else if (userChoice.equalsIgnoreCase("P")) {
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
@@ -51,13 +55,7 @@ public class HomeScreen {
 
                 Account account = new Account(description, vendor, amount);
 
-                BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src/main/resources/transactions.csv", true));
-                String text;
-                for (int i = 1; i <= 10; i++) {
-                    text = String.format("Counting %d\n", i);
-                    bufferedWriter.write((text));
-                }
-                bufferedWriter.close();
+                accountHashMap.put(accountHashMap.size(), account);
             } else if (userChoice.equalsIgnoreCase("L")) {
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
@@ -66,6 +64,7 @@ public class HomeScreen {
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
                 System.out.println("Exiting Program...");
+                FileManager.writer();
                 System.exit(0);
             }
 

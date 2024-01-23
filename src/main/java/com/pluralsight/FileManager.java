@@ -45,10 +45,11 @@ public class FileManager {
 
     public static void writer(){
         try{
-            FileWriter fileWriter = new FileWriter("src/main/resources/transactions.csv", true);
+            FileWriter fileWriter = new FileWriter("src/main/resources/transactions.csv");
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             for(Account account: accountHashMap.values()){
-                String transactionLine = (String.format(account.getDate()  + "|" + account.getTime().trim() + "|" + account.getDescription().trim() + "|" + account.getVendor().trim() + "|" + account.getAmount()));
+                String transactionLine = (String.format(account.getDate()  + "|" + account.getTime().trim() + "|" +
+                        account.getDescription().trim() + "|" + account.getVendor().trim() + "|" + account.getAmount()));
                 bufferedWriter.write(transactionLine);
                 bufferedWriter.newLine();
             }
